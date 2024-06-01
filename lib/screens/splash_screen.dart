@@ -27,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> {
     return ResponsiveScreen(
       mobile: customSizeScreenLogo(customSizeWidth: 1,customSizeHeight: 0.3),
       tablet: customSizeScreenLogo(customSizeWidth: 0.9,customSizeHeight: 0.35),
-      desktop: customSizeScreenLogo(customSizeWidth: 1,customSizeHeight: 1),
     );
   }
 
