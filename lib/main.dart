@@ -1,4 +1,5 @@
 import 'package:assement_lm_sv/screens/login.dart';
+import 'package:assement_lm_sv/screens/menu.dart';
 import 'package:assement_lm_sv/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: Menu(),
     );
   }
 }

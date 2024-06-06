@@ -13,7 +13,7 @@ class ResponsiveScreen extends StatelessWidget {
         builder: (context, constraints) {
           if(constraints.maxWidth >= 1 && constraints.maxWidth <= 650)
             return mobile;
-          else (constraints.maxWidth >= 650);
+          else (constraints.maxWidth > 650);
             return tablet;
         });
   }
