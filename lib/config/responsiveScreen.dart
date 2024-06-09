@@ -9,12 +9,19 @@ class ResponsiveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (context, constraints) {
-          if(constraints.maxWidth >= 1 && constraints.maxWidth <= 650)
-            return mobile;
-          else (constraints.maxWidth > 650);
-            return tablet;
-        });
+
+    if(MediaQuery.of(context).size.width >= 1 && MediaQuery.of(context).size.width <= 650)
+      return mobile;
+    else
+      return tablet;
+
+    //
+    // return LayoutBuilder(
+    //     builder: (context, constraints) {
+    //       if(constraints.maxWidth >= 1 && constraints.maxWidth <= 650)
+    //         return mobile;
+    //       else (constraints.maxWidth > 650);
+    //         return tablet;
+    //     });
   }
 }
