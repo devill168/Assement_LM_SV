@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:khmer_fonts/khmer_fonts.dart';
 
+import '../models/variableGridView.dart';
+
 class Menu extends StatefulWidget {
   const Menu({super.key});
 
@@ -24,6 +26,16 @@ class _MenuState extends State<Menu> {
   bool isActiveContact = false;
   bool isActiveLogout = false;
   bool orientationScreen = true;
+
+  final List<DataPic> iconGridView = [
+    DataPic(icon: Icons.checklist,nameTitle: "Surveillance"),
+    DataPic(icon: Icons.forest,nameTitle: "Last Mile"),
+    DataPic(icon: Icons.pie_chart,nameTitle: "Report"),
+    DataPic(icon: Icons.medical_information,nameTitle: "Information Detail"),
+    DataPic(icon: Icons.storage,nameTitle: "Offline Data"),
+    DataPic(icon: Icons.settings,nameTitle: "Setting"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     if(MediaQuery.of(context).size.width >= 1 && MediaQuery.of(context).size.width <= 650){
@@ -104,12 +116,11 @@ class _MenuState extends State<Menu> {
               mobile:  Container(decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xff71ADD5),Color(0xff2471A3)], begin: Alignment.topRight, end: Alignment.bottomLeft))),
 
 
-              tablet: orientationScreen ?
+              tablet: orientationScreen ? /*Portrait*/
               ListView(
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
                     decoration: const BoxDecoration(
                         gradient: LinearGradient(
                             colors: [Color(0xff71ADD5),Color(0xff2471A3)],
@@ -117,32 +128,138 @@ class _MenuState extends State<Menu> {
                             end: Alignment.bottomLeft)),
                     child: Column(
                       children: [
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.12),
-                        Text("Assement Last Mile & Surveillance", style: TextStyle(fontSize: responsiveSizeScreenTablet? 27 : 20,color: Colors.white)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(onPressed: (){}, icon: Icon(Icons.facebook,color: Colors.white,size: 50)),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.telegram,color: Colors.white,size: 50)),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.public,color: Colors.white,size: 50)),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.tiktok,color: Colors.white,size: 50)),
-                            ]
-                        ),
-                        Spacer(),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 1,
-                          height: MediaQuery.of(context).size.height * 0.8,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(50),topLeft: Radius.circular(50))
-                          ),
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                        SizedBox(height: 50),
+
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.08),
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: MediaQuery.of(context).size.height * 0.79,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(30))
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.18,horizontal:  MediaQuery.of(context).size.height * 0.025),
+                                child: GridView.builder(
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 0,
+                                    mainAxisSpacing: 2,
+                                    childAspectRatio: 2,
+                                  ),
+                                  itemBuilder: (context,index){
+                                    return Column(
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * 0.35,
+                                          height: MediaQuery.of(context).size.height * 0.12,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color: Colors.lightBlue),
+                                            color: Colors.white, /*Background Color Main-Gridview*/
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Color(0xff71ADD5),
+                                                offset: Offset(1,1),
+                                                blurRadius: 3,
+                                                spreadRadius: 1,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context).size.width * 0.8,
+                                                height: MediaQuery.of(context).size.height * 0.07,
+                                                child: IconButton(onPressed: (){
+                                                  /*if(index == 0){
+                                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()),(route) => false);
+                                                  }
+                                                  else if(index == 1){
+                                                    Navigator.push(context,MaterialPageRoute(builder: (context) => const List_View()));
+                                                  }*/
+                                                }, icon: Icon(iconGridView[index].icon,color: Color(0xff2471A3),size: 50,)),
+                                              ),
+                                              Divider(color: Colors.lightBlue.shade300),
+                                              Text(iconGridView[index].nameTitle,style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  itemCount: iconGridView.length,
+                                ),
+                              ),
+                            ),
+
+                            Positioned(
+                                top: 5,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  height: MediaQuery.of(context).size.height * 0.2,
+                                  decoration: const BoxDecoration(
+                                      gradient: LinearGradient(colors: [Color(0xffAED6F1), Color(0xffFBFCFC)],begin: Alignment.topRight,end: Alignment.bottomRight),
+                                      borderRadius: BorderRadius.all(Radius.circular(20))
+                                  ),
+                                  child: PageView(
+                                    scrollDirection: Axis.vertical,
+                                    children:  [
+                                      Padding(
+                                        padding: EdgeInsets.all(20),
+                                        child: Column(
+                                          children: [
+                                            CircleAvatar(backgroundColor: Color(0xff71ADD5),backgroundImage: AssetImage("assets/img/user.png"), radius: 50),
+                                            SizedBox(height: 10),
+                                            Text("SAKY",style: TextStyle(color: Color(0xff2471A3),fontSize: 25)),
+                                            Text("AU",style: TextStyle(color: Color(0xff2471A3),fontSize: 25)),
+                                            SizedBox(height: 20),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("10/June/2024",style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
+                                                Text("Version 1.0.1",style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("Assement Last Mile & Surveillance", style: TextStyle(fontSize: responsiveSizeScreenTablet? 30 : 22,color:  Color(0xff2471A3))),
+                                           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.facebook,color: Colors.blue,size: 50)),
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.telegram,color: Colors.lightBlueAccent.shade200,size: 40)),
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.public,color: Colors.blue,size: 50)),
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.tiktok,color: Colors.black,size: 50)),
+                                              ],
+                                            ),
+                                            Text("Information In Social Media",style: TextStyle(color: Color(0xff2471A3),fontSize: 30)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        )
                       ],
                     ),
                   ),
                 ],
               )
-                  :
+                  : /*Landscape*/
               Container(decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xff71ADD5),Color(0xff2471A3)], begin: Alignment.topRight, end: Alignment.bottomLeft)))
           ),
        ),
