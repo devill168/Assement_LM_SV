@@ -6,3 +6,13 @@ class DataPic{
 
   DataPic({required this.icon, required this.nameTitle});
 }
+
+class Show_HideContainer{
+  bool isVisibleContainer;
+
+
+  Show_HideContainer({
+    required this.isVisibleContainer,
+
+  });
+}

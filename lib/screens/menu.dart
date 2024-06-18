@@ -1,4 +1,3 @@
-
 import 'package:assement_lm_sv/config/responsiveScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,18 +25,34 @@ class _MenuState extends State<Menu> {
   bool isActiveContact = false;
   bool isActiveLogout = false;
   bool orientationScreen = true;
-
   final List<DataPic> iconGridView = [
     DataPic(icon: Icons.checklist,nameTitle: "Surveillance"),
     DataPic(icon: Icons.forest,nameTitle: "Last Mile"),
     DataPic(icon: Icons.pie_chart,nameTitle: "Report"),
-    DataPic(icon: Icons.medical_information,nameTitle: "Information Detail"),
+    DataPic(icon: Icons.question_answer_outlined,nameTitle: "DQA Surveillance"),
     DataPic(icon: Icons.storage,nameTitle: "Offline Data"),
     DataPic(icon: Icons.settings,nameTitle: "Setting"),
+    DataPic(icon: Icons.edit,nameTitle: "Add"),
+    DataPic(icon: Icons.preview,nameTitle: "Preview"),
+    DataPic(icon: Icons.health_and_safety_outlined,nameTitle: "HC"),
+    DataPic(icon: Icons.groups,nameTitle: "VMW"),
+    DataPic(icon: Icons.screen_search_desktop_outlined,nameTitle: "Device"),
+    DataPic(icon: Icons.import_export,nameTitle: "Export Data"),
   ];
+
+  final List<Show_HideContainer> isVisible =[
+   Show_HideContainer(isVisibleContainer: false),
+    Show_HideContainer(isVisibleContainer: false),
+    Show_HideContainer(isVisibleContainer: false),
+    Show_HideContainer(isVisibleContainer: false),
+    Show_HideContainer(isVisibleContainer: false),
+    Show_HideContainer(isVisibleContainer: false),
+  ];
+
 
   @override
   Widget build(BuildContext context) {
+
     if(MediaQuery.of(context).size.width >= 1 && MediaQuery.of(context).size.width <= 650){
       WidgetsFlutterBinding.ensureInitialized();
       SystemChrome.setPreferredOrientations([
@@ -73,7 +88,7 @@ class _MenuState extends State<Menu> {
         borderRadius: orientationScreen? BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20)) : null),
         animationDuration: const Duration(milliseconds: 300),
         drawer: ResponsiveScreen(
-            mobile: customContainerDrawer(sizeWidthDrawer: 20,sizeHightDrawer: 10, sizeHightDivider: 0.05, nameLogo: "assets/img/logo_cnm_128 x 128.png"),
+            mobile: ListView(children: [customContainerDrawer(sizeWidthDrawer: 20,sizeHightDrawer: 10, sizeHightDivider: 0.05, nameLogo: "assets/img/logo_cnm_128 x 128.png"),]),
 
             tablet: orientationScreen
                 ? /*Drawer Portrait*/
@@ -113,8 +128,102 @@ class _MenuState extends State<Menu> {
          ),
 
           body: ResponsiveScreen(
-              mobile:  Container(decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xff71ADD5),Color(0xff2471A3)], begin: Alignment.topRight, end: Alignment.bottomLeft))),
+              mobile: ListView(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Color(0xff71ADD5),Color(0xff2471A3)],
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft)),
+                    child: Column(
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                        SizedBox(height: 30),
 
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.1),
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: MediaQuery.of(context).size.height * 0.75,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(30))
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.16),
+                                child: ListView(
+                                  children: [
+                                    boxContainer(sizeIcon: 30,sizeTitle: 13)
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            Positioned(
+                                top: 5,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  height: MediaQuery.of(context).size.height * 0.2,
+                                  decoration: const BoxDecoration(
+                                      gradient: LinearGradient(colors: [Color(0xffAED6F1), Color(0xffFBFCFC)],begin: Alignment.topRight,end: Alignment.bottomRight),
+                                      borderRadius: BorderRadius.all(Radius.circular(20))
+                                  ),
+                                  child: PageView(
+                                    scrollDirection: Axis.vertical,
+                                    children: [
+                                     const Padding(
+                                        padding: EdgeInsets.all(20),
+                                        child: Column(
+                                          children: [
+                                            CircleAvatar(backgroundColor: Color(0xff71ADD5),backgroundImage: AssetImage("assets/img/user.png"), radius: 30),
+                                            SizedBox(height: 10),
+                                            Text("SAKY",style: TextStyle(color: Color(0xff2471A3),fontSize: 15)),
+                                            Text("AU",style: TextStyle(color: Color(0xff2471A3),fontSize: 15)),
+                                            SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("10/June/2024",style: TextStyle(color: Color(0xff2471A3),fontSize: 10)),
+                                                Text("Version 1.0.1",style: TextStyle(color: Color(0xff2471A3),fontSize: 10)),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("Assement Last Mile & Surveillance", style: TextStyle(fontSize: responsiveSizeScreenTablet? 25 : 13,color:  Color(0xff2471A3))),
+                                            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.facebook,color: Colors.blue,size: 25)),
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.telegram,color: Colors.lightBlueAccent.shade200,size: 25)),
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.public,color: Colors.blue,size: 25)),
+                                                IconButton(onPressed: (){}, icon: Icon(Icons.tiktok,color: Colors.black,size: 25)),
+                                              ],
+                                            ),
+                                            Text("Information In Social Media",style: TextStyle(fontSize: responsiveSizeScreenTablet? 25 : 13,color:  Color(0xff2471A3))),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
 
               tablet: orientationScreen ? /*Portrait*/
               ListView(
@@ -143,58 +252,12 @@ class _MenuState extends State<Menu> {
                                   borderRadius: BorderRadius.all(Radius.circular(30))
                               ),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.18,horizontal:  MediaQuery.of(context).size.height * 0.025),
-                                child: GridView.builder(
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 0,
-                                    mainAxisSpacing: 2,
-                                    childAspectRatio: 2,
-                                  ),
-                                  itemBuilder: (context,index){
-                                    return Column(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context).size.width * 0.35,
-                                          height: MediaQuery.of(context).size.height * 0.12,
-                                          margin: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                                            border: Border.all(color: Colors.lightBlue),
-                                            color: Colors.white, /*Background Color Main-Gridview*/
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Color(0xff71ADD5),
-                                                offset: Offset(1,1),
-                                                blurRadius: 3,
-                                                spreadRadius: 1,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context).size.width * 0.8,
-                                                height: MediaQuery.of(context).size.height * 0.07,
-                                                child: IconButton(onPressed: (){
-                                                  /*if(index == 0){
-                                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()),(route) => false);
-                                                  }
-                                                  else if(index == 1){
-                                                    Navigator.push(context,MaterialPageRoute(builder: (context) => const List_View()));
-                                                  }*/
-                                                }, icon: Icon(iconGridView[index].icon,color: Color(0xff2471A3),size: 50,)),
-                                              ),
-                                              Divider(color: Colors.lightBlue.shade300),
-                                              Text(iconGridView[index].nameTitle,style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  itemCount: iconGridView.length,
-                                ),
+                                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.18),
+                                child: ListView(
+                                  children: [
+                                    boxContainer(sizeIcon: 50,sizeTitle: 18)
+                                  ],
+                                )
                               ),
                             ),
 
@@ -209,32 +272,32 @@ class _MenuState extends State<Menu> {
                                   ),
                                   child: PageView(
                                     scrollDirection: Axis.vertical,
-                                    children:  [
+                                    children: [
                                       Padding(
                                         padding: EdgeInsets.all(20),
                                         child: Column(
                                           children: [
-                                            CircleAvatar(backgroundColor: Color(0xff71ADD5),backgroundImage: AssetImage("assets/img/user.png"), radius: 50),
+                                            CircleAvatar(backgroundColor: Color(0xff71ADD5),backgroundImage: AssetImage("assets/img/user.png"), radius: 40),
                                             SizedBox(height: 10),
-                                            Text("SAKY",style: TextStyle(color: Color(0xff2471A3),fontSize: 25)),
-                                            Text("AU",style: TextStyle(color: Color(0xff2471A3),fontSize: 25)),
-                                            SizedBox(height: 20),
+                                            Text("SAKY",style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
+                                            Text("AU",style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
+                                            SizedBox(height: 15),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text("10/June/2024",style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
-                                                Text("Version 1.0.1",style: TextStyle(color: Color(0xff2471A3),fontSize: 20)),
+                                                Text("10/June/2024",style: TextStyle(color: Color(0xff2471A3),fontSize: 15)),
+                                                Text("Version 1.0.1",style: TextStyle(color: Color(0xff2471A3),fontSize: 15)),
                                               ],
                                             )
                                           ],
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text("Assement Last Mile & Surveillance", style: TextStyle(fontSize: responsiveSizeScreenTablet? 30 : 22,color:  Color(0xff2471A3))),
+                                            Text("Assement Last Mile & Surveillance", style: TextStyle(fontSize: responsiveSizeScreenTablet? 25 : 17,color:  Color(0xff2471A3))),
                                            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -245,7 +308,7 @@ class _MenuState extends State<Menu> {
                                                 IconButton(onPressed: (){}, icon: Icon(Icons.tiktok,color: Colors.black,size: 50)),
                                               ],
                                             ),
-                                            Text("Information In Social Media",style: TextStyle(color: Color(0xff2471A3),fontSize: 30)),
+                                            Text("Information In Social Media",style: TextStyle(fontSize: responsiveSizeScreenTablet? 25 : 17,color:  Color(0xff2471A3))),
                                           ],
                                         ),
                                       ),
@@ -260,7 +323,282 @@ class _MenuState extends State<Menu> {
                 ],
               )
                   : /*Landscape*/
-              Container(decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xff71ADD5),Color(0xff2471A3)], begin: Alignment.topRight, end: Alignment.bottomLeft)))
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(colors: [Color(0xff71ADD5),Color(0xff2471A3)],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.50,
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(200),bottomRight: Radius.circular(200)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xff2471A3),
+                              offset: Offset(0.5,0.5),
+                              blurRadius: 5,
+                              spreadRadius: 2,
+                            )
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("ក្រសួងសុខាភិបាល",style: TextStyle(color: Color(0xff2471A3),fontSize: 30,fontFamily: KhmerFonts.moul,fontWeight: FontWeight.w500, package: "Khmer_fonts")),
+                            Divider(
+                              color: Color(0xff2471A3),
+                              indent: MediaQuery.of(context).size.width * 0.12,
+                              endIndent: MediaQuery.of(context).size.width * 0.12,
+                            ),
+                            const Text("ម.គ.ច",style: TextStyle(color: Color(0xff2471A3),fontSize: 30,fontFamily: KhmerFonts.moul,fontWeight: FontWeight.w500, package: "Khmer_fonts")),
+                            const SizedBox(height: 30),
+                            Image.asset("assets/img/logo_cnm_200 x 200.png",fit: BoxFit.fill)
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.442,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        radius: 100,
+                                        onTap: (){
+                                          setState(() {
+                                            isVisible[0].isVisibleContainer = !isVisible[0].isVisibleContainer;
+                                            isVisible[1].isVisibleContainer = false;
+                                            isVisible[2].isVisibleContainer = false;
+                                            isVisible[3].isVisibleContainer = false;
+                                            isVisible[4].isVisibleContainer = false;
+                                            isVisible[5].isVisibleContainer = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color:isVisible[0].isVisibleContainer? Colors.transparent : Colors.white),
+                                            color: isVisible[0].isVisibleContainer? Color(0xff2471A3) : Colors.transparent, /*Background Color Main-Gridview*/
+                                          ),
+
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(iconGridView[0].icon,color: Colors.white,size: 50),
+                                              Divider(color: Colors.white),
+                                              Text(iconGridView[0].nameTitle,style: TextStyle(color: Colors.white ,fontSize: 35)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+
+                                      InkWell(
+                                        radius: 100,
+                                        onTap: (){
+                                          setState(() {
+                                            isVisible[0].isVisibleContainer = false;
+                                            isVisible[1].isVisibleContainer = !isVisible[1].isVisibleContainer;
+                                            isVisible[2].isVisibleContainer = false;
+                                            isVisible[3].isVisibleContainer = false;
+                                            isVisible[4].isVisibleContainer = false;
+                                            isVisible[5].isVisibleContainer = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color:isVisible[1].isVisibleContainer? Colors.transparent : Colors.white),
+                                            color: isVisible[1].isVisibleContainer? Color(0xff2471A3) : Colors.transparent, /*Background Color Main-Gridview*/
+                                          ),
+
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(iconGridView[1].icon,color: Colors.white,size: 50),
+                                              Divider(color: Colors.white),
+                                              Text(iconGridView[1].nameTitle,style: TextStyle(color: Colors.white ,fontSize: 35)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        radius: 100,
+                                        onTap: (){
+                                          setState(() {
+                                            isVisible[0].isVisibleContainer = !isVisible[0].isVisibleContainer;
+                                            isVisible[1].isVisibleContainer = false;
+                                            isVisible[2].isVisibleContainer = false;
+                                            isVisible[3].isVisibleContainer = false;
+                                            isVisible[4].isVisibleContainer = false;
+                                            isVisible[5].isVisibleContainer = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color:isVisible[0].isVisibleContainer? Colors.transparent : Colors.white),
+                                            color: isVisible[0].isVisibleContainer? Color(0xff2471A3) : Colors.transparent, /*Background Color Main-Gridview*/
+                                          ),
+
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(iconGridView[0].icon,color: Colors.white,size: 50),
+                                              Divider(color: Colors.white),
+                                              Text(iconGridView[0].nameTitle,style: TextStyle(color: Colors.white ,fontSize: 35)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+
+                                      InkWell(
+                                        radius: 100,
+                                        onTap: (){
+                                          setState(() {
+                                            isVisible[0].isVisibleContainer = false;
+                                            isVisible[1].isVisibleContainer = !isVisible[1].isVisibleContainer;
+                                            isVisible[2].isVisibleContainer = false;
+                                            isVisible[3].isVisibleContainer = false;
+                                            isVisible[4].isVisibleContainer = false;
+                                            isVisible[5].isVisibleContainer = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color:isVisible[1].isVisibleContainer? Colors.transparent : Colors.white),
+                                            color: isVisible[1].isVisibleContainer? Color(0xff2471A3) : Colors.transparent, /*Background Color Main-Gridview*/
+                                          ),
+
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(iconGridView[1].icon,color: Colors.white,size: 50),
+                                              Divider(color: Colors.white),
+                                              Text(iconGridView[1].nameTitle,style: TextStyle(color: Colors.white ,fontSize: 35)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        radius: 100,
+                                        onTap: (){
+                                          setState(() {
+                                            isVisible[0].isVisibleContainer = !isVisible[0].isVisibleContainer;
+                                            isVisible[1].isVisibleContainer = false;
+                                            isVisible[2].isVisibleContainer = false;
+                                            isVisible[3].isVisibleContainer = false;
+                                            isVisible[4].isVisibleContainer = false;
+                                            isVisible[5].isVisibleContainer = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color:isVisible[0].isVisibleContainer? Colors.transparent : Colors.white),
+                                            color: isVisible[0].isVisibleContainer? Color(0xff2471A3) : Colors.transparent, /*Background Color Main-Gridview*/
+                                          ),
+
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(iconGridView[0].icon,color: Colors.white,size: 50),
+                                              Divider(color: Colors.white),
+                                              Text(iconGridView[0].nameTitle,style: TextStyle(color: Colors.white ,fontSize: 35)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+
+                                      InkWell(
+                                        radius: 100,
+                                        onTap: (){
+                                          setState(() {
+                                            isVisible[0].isVisibleContainer = false;
+                                            isVisible[1].isVisibleContainer = !isVisible[1].isVisibleContainer;
+                                            isVisible[2].isVisibleContainer = false;
+                                            isVisible[3].isVisibleContainer = false;
+                                            isVisible[4].isVisibleContainer = false;
+                                            isVisible[5].isVisibleContainer = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          margin: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            border: Border.all(color:isVisible[1].isVisibleContainer? Colors.transparent : Colors.white),
+                                            color: isVisible[1].isVisibleContainer? Color(0xff2471A3) : Colors.transparent, /*Background Color Main-Gridview*/
+                                          ),
+
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(iconGridView[1].icon,color: Colors.white,size: 50),
+                                              Divider(color: Colors.white),
+                                              Text(iconGridView[1].nameTitle,style: TextStyle(color: Colors.white ,fontSize: 35)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+              ),
           ),
        ),
     );
@@ -437,6 +775,629 @@ class _MenuState extends State<Menu> {
           );
   }
 
+
+  Widget boxContainer({required double sizeIcon,required double sizeTitle}){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /*Row 1*/
+        Row(
+         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+         children: [
+           InkWell(
+             radius: 100,
+             onTap: (){
+               setState(() {
+                 isVisible[0].isVisibleContainer = !isVisible[0].isVisibleContainer;
+                 isVisible[1].isVisibleContainer = false;
+                 isVisible[2].isVisibleContainer = false;
+                 isVisible[3].isVisibleContainer = false;
+                 isVisible[4].isVisibleContainer = false;
+                 isVisible[5].isVisibleContainer = false;
+               });
+             },
+             child: Container(
+               width: MediaQuery.of(context).size.width * 0.35,
+               height: MediaQuery.of(context).size.height * 0.12,
+               margin: const EdgeInsets.all(5),
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.all(Radius.circular(20)),
+                 border: Border.all(color:isVisible[0].isVisibleContainer? Colors.white : Colors.lightBlue),
+                 color: isVisible[0].isVisibleContainer? Color(0xff2471A3) : Colors.white, /*Background Color Main-Gridview*/
+                 boxShadow: [
+                   BoxShadow(
+                     color: Color(0xff71ADD5),
+                     offset: Offset(1,1),
+                     blurRadius: 2,
+                     spreadRadius: 1,
+                   ),
+                 ],
+               ),
+             
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Icon(iconGridView[0].icon,color:isVisible[0].isVisibleContainer? Colors.white : Color(0xff2471A3),size: sizeIcon),
+                   Divider(color: isVisible[0].isVisibleContainer? Colors.white : Colors.lightBlue.shade300),
+                   Text(iconGridView[0].nameTitle,style: TextStyle(color: isVisible[0].isVisibleContainer? Colors.white : Color(0xff2471A3),fontSize: sizeTitle)),
+                 ],
+               ),
+             ),
+           ),
+
+           InkWell(
+             radius: 100,
+             onTap: (){
+               setState(() {
+                 isVisible[0].isVisibleContainer = false;
+                 isVisible[1].isVisibleContainer = !isVisible[1].isVisibleContainer;
+                 isVisible[2].isVisibleContainer = false;
+                 isVisible[3].isVisibleContainer = false;
+                 isVisible[4].isVisibleContainer = false;
+                 isVisible[5].isVisibleContainer = false;
+               });
+             },
+             child: Container(
+               width: MediaQuery.of(context).size.width * 0.35,
+               height: MediaQuery.of(context).size.height * 0.12,
+               margin: const EdgeInsets.all(5),
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.all(Radius.circular(20)),
+                 border: Border.all(color:isVisible[1].isVisibleContainer? Colors.white : Colors.lightBlue),
+                 color: isVisible[1].isVisibleContainer? Color(0xff2471A3) : Colors.white, /*Background Color Main-Gridview*/
+                 boxShadow: [
+                   BoxShadow(
+                     color: Color(0xff71ADD5),
+                     offset: Offset(1,1),
+                     blurRadius: 2,
+                     spreadRadius: 1,
+                   ),
+                 ],
+               ),
+
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Icon(iconGridView[1].icon,color:isVisible[1].isVisibleContainer? Colors.white : Color(0xff2471A3),size: sizeIcon),
+                   Divider(color: isVisible[1].isVisibleContainer? Colors.white : Colors.lightBlue.shade300),
+                   Text(iconGridView[1].nameTitle,style: TextStyle(color: isVisible[1].isVisibleContainer? Colors.white : Color(0xff2471A3),fontSize: sizeTitle)),
+                 ],
+               ),
+             ),
+           ),
+         ],
+       ),
+        SizedBox(height: responsiveSizeScreenTablet? 10 : 5),
+        Visibility(
+          visible: isVisible[0].isVisibleContainer,
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 0.25,
+                color: Color(0xff2471A3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[6].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[6].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[7].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[7].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Visibility(
+          visible: isVisible[1].isVisibleContainer,
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 0.25,
+                color: Color(0xff2471A3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[6].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[6].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[7].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[7].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: responsiveSizeScreenTablet? 10 : 5),
+
+        /*Row 2*/
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              radius: 100,
+              onTap: (){
+                setState(() {
+                  isVisible[0].isVisibleContainer = false;
+                  isVisible[1].isVisibleContainer = false;
+                  isVisible[2].isVisibleContainer = !isVisible[2].isVisibleContainer;
+                  isVisible[3].isVisibleContainer = false;
+                  isVisible[4].isVisibleContainer = false;
+                  isVisible[5].isVisibleContainer = false;
+                });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.35,
+                height: MediaQuery.of(context).size.height * 0.12,
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color:isVisible[2].isVisibleContainer? Colors.white : Colors.lightBlue),
+                  color: isVisible[2].isVisibleContainer? Color(0xff2471A3) : Colors.white, /*Background Color Main-Gridview*/
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff71ADD5),
+                      offset: Offset(1,1),
+                      blurRadius: 2,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(iconGridView[2].icon,color:isVisible[2].isVisibleContainer? Colors.white : Color(0xff2471A3),size: sizeIcon),
+                    Divider(color: isVisible[2].isVisibleContainer? Colors.white : Colors.lightBlue.shade300),
+                    Text(iconGridView[2].nameTitle,style: TextStyle(color: isVisible[2].isVisibleContainer? Colors.white : Color(0xff2471A3),fontSize: sizeTitle)),
+                  ],
+                ),
+              ),
+            ),
+
+            InkWell(
+              radius: 100,
+              onTap: (){
+                setState(() {
+                  isVisible[0].isVisibleContainer = false;
+                  isVisible[1].isVisibleContainer = false;
+                  isVisible[2].isVisibleContainer = false;
+                  isVisible[3].isVisibleContainer = !isVisible[3].isVisibleContainer;
+                  isVisible[4].isVisibleContainer = false;
+                  isVisible[5].isVisibleContainer = false;
+                });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.35,
+                height: MediaQuery.of(context).size.height * 0.12,
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color:isVisible[3].isVisibleContainer? Colors.white : Colors.lightBlue),
+                  color: isVisible[3].isVisibleContainer? Color(0xff2471A3) : Colors.white, /*Background Color Main-Gridview*/
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff71ADD5),
+                      offset: Offset(1,1),
+                      blurRadius: 2,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(iconGridView[3].icon,color:isVisible[3].isVisibleContainer? Colors.white : Color(0xff2471A3),size: sizeIcon),
+                    Divider(color: isVisible[3].isVisibleContainer? Colors.white : Colors.lightBlue.shade300),
+                    Text(iconGridView[3].nameTitle,style: TextStyle(color: isVisible[3].isVisibleContainer? Colors.white : Color(0xff2471A3),fontSize: sizeTitle)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: responsiveSizeScreenTablet? 10 : 5),
+        Visibility(
+          visible: isVisible[2].isVisibleContainer,
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 0.25,
+                color: Color(0xff2471A3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[8].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[8].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[9].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[9].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Visibility(
+          visible: isVisible[3].isVisibleContainer,
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 0.25,
+                color: Color(0xff2471A3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[6].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[6].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[7].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[7].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: responsiveSizeScreenTablet? 10 : 5),
+
+        /*Row 3*/
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              radius: 100,
+              onTap: (){
+                setState(() {
+                  isVisible[0].isVisibleContainer = false;
+                  isVisible[1].isVisibleContainer = false;
+                  isVisible[2].isVisibleContainer = false;
+                  isVisible[3].isVisibleContainer = false;
+                  isVisible[4].isVisibleContainer = !isVisible[4].isVisibleContainer;
+                  isVisible[5].isVisibleContainer = false;
+                });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.35,
+                height: MediaQuery.of(context).size.height * 0.12,
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color:isVisible[4].isVisibleContainer? Colors.white : Colors.lightBlue),
+                  color: isVisible[4].isVisibleContainer? Color(0xff2471A3) : Colors.white, /*Background Color Main-Gridview*/
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff71ADD5),
+                      offset: Offset(1,1),
+                      blurRadius: 2,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(iconGridView[4].icon,color:isVisible[4].isVisibleContainer? Colors.white : Color(0xff2471A3),size: sizeIcon),
+                    Divider(color: isVisible[4].isVisibleContainer? Colors.white : Colors.lightBlue.shade300),
+                    Text(iconGridView[4].nameTitle,style: TextStyle(color: isVisible[4].isVisibleContainer? Colors.white : Color(0xff2471A3),fontSize: sizeTitle)),
+                  ],
+                ),
+              ),
+            ),
+
+            InkWell(
+              radius: 100,
+              onTap: (){
+                setState(() {
+                  isVisible[0].isVisibleContainer = false;
+                  isVisible[1].isVisibleContainer = false;
+                  isVisible[2].isVisibleContainer = false;
+                  isVisible[3].isVisibleContainer = false;
+                  isVisible[4].isVisibleContainer = false;
+                  isVisible[5].isVisibleContainer = !isVisible[5].isVisibleContainer;
+                });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.35,
+                height: MediaQuery.of(context).size.height * 0.12,
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color:isVisible[5].isVisibleContainer? Colors.white : Colors.lightBlue),
+                  color: isVisible[5].isVisibleContainer? Color(0xff2471A3) : Colors.white, /*Background Color Main-Gridview*/
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff71ADD5),
+                      offset: Offset(1,1),
+                      blurRadius: 2,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(iconGridView[5].icon,color:isVisible[5].isVisibleContainer? Colors.white : Color(0xff2471A3),size: sizeIcon),
+                    Divider(color: isVisible[5].isVisibleContainer? Colors.white : Colors.lightBlue.shade300),
+                    Text(iconGridView[5].nameTitle,style: TextStyle(color: isVisible[5].isVisibleContainer? Colors.white : Color(0xff2471A3),fontSize: sizeTitle)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: responsiveSizeScreenTablet? 10 : 5),
+        Visibility(
+          visible: isVisible[5].isVisibleContainer,
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 0.25,
+                color: Color(0xff2471A3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[10].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[10].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                        });
+                      },
+                      child: Container(
+                        width: responsiveSizeScreenTablet? MediaQuery.of(context).size.width * 0.23 :MediaQuery.of(context).size.width * 0.29,
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(90)),
+                          border: Border.all(color:Colors.white),
+                          color:Color(0xff2471A3), /*Background Color Main-Gridview*/
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(iconGridView[11].icon,color:Colors.white,size: sizeIcon),
+                            Divider(color:Colors.white),
+                            Text(iconGridView[11].nameTitle,style: TextStyle(color:Colors.white,fontSize: sizeTitle)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: responsiveSizeScreenTablet? 10 : 5),
+
+
+      ],
+    );
+  }
 
   void drawerControl(){
     advencedDrawerController.showDrawer();
